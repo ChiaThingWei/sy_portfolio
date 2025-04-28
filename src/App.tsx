@@ -1,11 +1,26 @@
 import { BackgroundGradient } from './components/ui/background-gradient';
 import {seiyu,   potrait, skills, star, services, hotel } from './utils/images';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SocialIcon from './components/ui/SocialIcon';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+import { moveUpGsap } from './utils/aminateGsap';
 
-function App() {
+export default function App() {
 
+  useEffect(() => {
+
+    moveUpGsap('.yo')
+    moveUpGsap('.text1')
+    moveUpGsap('.skills')
+    moveUpGsap('.skillss')
+    moveUpGsap('.check')
+    moveUpGsap('.service')
+    moveUpGsap('.servicee')
+
+  }, []); // This runs only once after component mounts
 
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,48 +33,18 @@ const toggleModal = (index: number) => {
 
 // Go to the next image
 const nextImage = () => {
-  setCurrentIndex((prevIndex) => (prevIndex + 1) % potrait.length); // Wrap around to first image if at end
+  setCurrentIndex((prevIndex) => (prevIndex + 1) % potrait.length); 
 };
 
 // Go to the previous image
 const prevImage = () => {
-  setCurrentIndex((prevIndex) => (prevIndex - 1 + potrait.length) % potrait.length); // Wrap around to last image if at start
+  setCurrentIndex((prevIndex) => (prevIndex - 1 + potrait.length) % potrait.length); 
 };
  
   return (
     <>
     <section className='w-screen h-screen'>
       <menu/>
-      {/* <div className=' w-full  h-[50vh] justify-center flex p-0 '>
-        <div className='relative w-screen h-full bg-gradient-to-r from-blue-500 to-black'>
-            <div className='top-28 left-7 absolute'>
-              <p className='text-lg'>
-                <span className='font-bold'>Lance Stephenson</span>
-                <br/>
-                <span>
-                  25 <br/>
-                  Front-end Developer
-                </span>
-              </p>
-            </div>
-
-            <div className='absolute top-1/2 left-1/2 transform -translate-y-1/2 rotate-45 origin-center -translate-x-1/2 h-[130%] w-[1px] rounded opacity-50 bg-green-200 mx-auto '/>
-
-            <div className='absolute top-24 -right-10 transform -translate-x-1/2'>
-              <img
-              src={elonMusk}
-              alt="profile pic"
-              className='rounded-full w-[150px] h-[150px] object-cover'
-              />
-            </div>
-
-           
-          </div>
-      </div> */}
-
-      
-            
-
 
       <div className='w-screen justify-center'>
         <div className='flex flex-col pt-5 w-full justify-center relative h-full bg-gray-100'>
@@ -71,7 +56,7 @@ const prevImage = () => {
               </div> */}
 
                 <div className='w-4/5 mx-auto my-5 text-center md:flex md:items-center md:justify-center'>
-                  <div className='flex-1'>
+                  <div id="yo" className='yo opacity-100 flex-1'>
                     <img
                     src={seiyu}
                     alt="seiyu"
@@ -92,7 +77,7 @@ const prevImage = () => {
                     
                    <p className='p-5 m-5 text-black'>Hi! I’m Sei Yu — a passionate photographer with a love for capturing real moments and raw emotions.
                      
-                    <span id="" className=' text-xl font-bold text-blue-600'>
+                    <span id="" className='text1 text-xl font-bold text-blue-600'>
                     {' '} Whether it’s a quiet portrait, a lively event, or a detailed product shoot,
                     I aim to tell stories through my lens.{' '}
                     </span>
@@ -105,7 +90,7 @@ const prevImage = () => {
 
                 <div className=" bg-black h-[1px] transform  w-[90%] mx-auto my-5" />
 
-                <div className='w-[30%] mx-auto my-5'>
+                <div className='skills opacity-0 w-[30%] mx-auto my-5'>
                 <BackgroundGradient className=' '>
                   <p className='font-semibold text-center uppercase'>Skills</p>
                 </BackgroundGradient>
@@ -119,7 +104,7 @@ const prevImage = () => {
 
               {/* <p className='my-5 mx-auto text-black font-dancing font-bold text-3xl'>MY SKILLS</p> */}
 
-              <div className='grid grid-cols-3 gap-10 md:gap-3 my-10 w-[90%] mx-auto'>
+              <div className='skillss grid grid-cols-3 gap-10 md:gap-3 my-10 w-[90%] mx-auto'>
                 {skills.map((items,index)=>(
 
                   <div key={index} className='mx-auto'>
@@ -153,7 +138,7 @@ const prevImage = () => {
                 />
               </div>
 
-              <div className='w-[50%] md:w-[30%] mx-auto my-5'>
+              <div className='check w-[50%] md:w-[30%] mx-auto my-5'>
                 <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Check Out My Work !</p>
                 </BackgroundGradient>
@@ -166,7 +151,7 @@ const prevImage = () => {
                   corporate portrait or product photography, we have it all covered!</p>
               </div>
 
-              <div className='mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-center mx-auto gap-6 md:gap-20'>
+              <div className='checkk mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-center mx-auto gap-6 md:gap-20'>
                   {potrait.map((items,index)=>(
 
                     <div key={index}>
@@ -217,11 +202,9 @@ const prevImage = () => {
 
 
 
-
-
               <div className=" bg-black h-[1px] transform  w-[90%] mx-auto my-10" />
 
-              <div className='w-[50%] md:w-[30%] mx-auto mb-5'>
+              <div className='service w-[50%] md:w-[30%] mx-auto mb-5'>
                 <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Services</p>
                 </BackgroundGradient>
@@ -233,24 +216,8 @@ const prevImage = () => {
                   Offering professional graduation portraits, personal and family sessions, and outdoor photography — capturing every moment with style and emotion.</p>
               </div>
 
-              {/* <div className='w-[80%] mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-center mx-auto gap-6 md:gap-20'>
-                {services.map((items,index)=>(
 
-                  <div key={index} className='mx-auto'>
-                  <img
-                  src={items.images}
-                  alt={items.title}
-                  className='rounded hover:scale-105 mx-auto transition-transform duration-300 w-[300px] h-auto'
-                  />
-
-                  <p className='mt-5 text-center text-black font-bold text-lg'>{items.title}</p>
-                  <p className='text-center text-black mt-2 text-sm'>{items.desc}</p>
-
-                  </div>
-                ))}
-              </div> */}
-
-            <div className='w-[80%] mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-stretch mx-auto gap-6 md:gap-20'>
+            <div className='servicee w-[80%] mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-stretch mx-auto gap-6 md:gap-20'>
               {services.map((items, index) => (
                 <div key={index} className='mx-auto flex flex-col items-center h-full max-w-[300px]'>
                   <img
@@ -300,7 +267,6 @@ const prevImage = () => {
               />
             </div>
 
-
         </div>
       </div>
      
@@ -309,4 +275,3 @@ const prevImage = () => {
   )
 }
 
-export default App
