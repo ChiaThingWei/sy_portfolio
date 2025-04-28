@@ -1,22 +1,17 @@
 import { BackgroundGradient } from './components/ui/background-gradient';
-import elonMusk from './images/musk.png'
-import { animateWithGsap } from './utils/aminateGsap';
-import {seiyu, flowerBg,  potrait, skills, star, services, boat, hotel } from './utils/images';
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import {seiyu,   potrait, skills, star, services, hotel } from './utils/images';
+import { useState } from 'react';
 import SocialIcon from './components/ui/SocialIcon';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 function App() {
 
 
-const [isOpen, setIsOpen] = useState(false);
-
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [currentIndex, setCurrentIndex] = useState(0);
 
 // Toggle modal visibility
-const toggleModal = (index) => {
+const toggleModal = (index: number) => {
   setCurrentIndex(index); // Set the clicked image's index
   setIsModalOpen(!isModalOpen); // Toggle the modal
 };
