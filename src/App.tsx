@@ -1,12 +1,13 @@
 import { BackgroundGradient } from './components/ui/background-gradient';
 import {seiyu,   potrait, skills, star, services, hotel } from './utils/images';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SocialIcon from './components/ui/SocialIcon';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { moveUpGsap } from './utils/aminateGsap';
+import InfiniteGallery from './components/ui/moving-gallery';
 
 export default function App() {
 
@@ -14,16 +15,61 @@ export default function App() {
 
     moveUpGsap('.yo')
     moveUpGsap('.text1')
-    moveUpGsap('.skills')
-    moveUpGsap('.skillss')
+    // moveUpGsap('.skills')
+    // moveUpGsap('.skillss')
     moveUpGsap('.check')
     moveUpGsap('.service')
     moveUpGsap('.servicee')
 
-  }, []); // This runs only once after component mounts
+  }, []); 
+
+  useEffect(() => {
+    gsap.utils.toArray('.fade-in').forEach((el) => {
+      gsap.fromTo(
+         el as Element,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: el as Element,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 60%', // when the top of the container hits 80% of the viewport height
+        toggleActions: 'play none none none', // play only once
+      },
+    });
+
+    tl.fromTo(
+      skillRefs.current.filter(Boolean),
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 5,
+        stagger: 0.5,
+        ease: 'power3.out',
+      }
+    );
+  }, []);
+
 
 const [isModalOpen, setIsModalOpen] = useState(false);
 const [currentIndex, setCurrentIndex] = useState(0);
+const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
+const containerRef = useRef<HTMLDivElement | null>(null);
+const audioRef = useRef<HTMLAudioElement | null>(null);
 
 // Toggle modal visibility
 const toggleModal = (index: number) => {
@@ -65,7 +111,7 @@ const prevImage = () => {
                   </div>
                   <div className='flex-1 mt-10'>
 
-                  <p className='text-xl text-black font-semibold'>
+                  <p className='text-xl md:text-2xl font-serif text-black font-semibold'>
                     <span className='font-semibold'>
                     CHIA SEI YU <br/>
                     </span>
@@ -77,7 +123,7 @@ const prevImage = () => {
                     
                    <p className='p-5 m-5 text-black'>Hi! I’m Sei Yu — a passionate photographer with a love for capturing real moments and raw emotions.
                      
-                    <span id="" className='text1 text-xl font-bold text-blue-600'>
+                    <span id="" className='text1 text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent'>
                     {' '} Whether it’s a quiet portrait, a lively event, or a detailed product shoot,
                     I aim to tell stories through my lens.{' '}
                     </span>
@@ -88,12 +134,14 @@ const prevImage = () => {
                   </div>
                 </div>
 
-                <div className=" bg-black h-[1px] transform  w-[90%] mx-auto my-5" />
+                <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
 
-                <div className='skills opacity-0 w-[30%] mx-auto my-5'>
-                <BackgroundGradient className=' '>
+          <div>
+                <div className='skills opacity-100 w-[30%] mx-auto my-10'>
+                {/* <BackgroundGradient className=' '>
                   <p className='font-semibold text-center uppercase'>Skills</p>
-                </BackgroundGradient>
+                </BackgroundGradient> */}
+                <p className='text-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent font-dancing text-4xl md:text-5xl'>SKILLS</p>
               </div>
               <div className='text-center w-4/5 mx-auto'>
                   <p className='text-black'>
@@ -104,10 +152,15 @@ const prevImage = () => {
 
               {/* <p className='my-5 mx-auto text-black font-dancing font-bold text-3xl'>MY SKILLS</p> */}
 
-              <div className='skillss grid grid-cols-3 gap-10 md:gap-3 my-10 w-[90%] mx-auto'>
+              <div ref={containerRef} className='skillss grid grid-cols-3 gap-10 md:gap-3 my-10 w-[90%] mx-auto'>
                 {skills.map((items,index)=>(
 
-                  <div key={index} className='mx-auto'>
+                  <div 
+                  key={index}
+                  ref={(el) => {
+                    skillRefs.current[index] = el;
+                  }} 
+                  className='mx-auto'>
                   <img
                   src={items.images}
                   alt={items.name}
@@ -119,10 +172,12 @@ const prevImage = () => {
                   </div>
                 ))}
               </div>
+            </div>
 
+              <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
               {/* <div className=" bg-black h-[1px] transform  w-[90%] mx-auto my-5" /> */}
 
-              <div className='w-screen h-[300px] md:h-[500px] my-10 justify-center items-center flex'>
+              {/* <div className='w-screen h-[300px] md:h-[500px] my-10 justify-center items-center flex'>
 
                 <div  className='quote w-4/5 md:w-3/5 absolute z-10 bg-slate-200  bg-opacity-50 rounded '>
                  <p className=' p-5 text-center font-whisper text-xl text-white md:text-4xl'>
@@ -136,12 +191,18 @@ const prevImage = () => {
                 className='relative object-cover w-full h-full'
                 style={{ filter: 'brightness(50%)' }}
                 />
-              </div>
+              </div> */}
 
-              <div className='check w-[50%] md:w-[30%] mx-auto my-5'>
-                <BackgroundGradient className=' '>
+              <InfiniteGallery/>
+
+              <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
+
+              <div className='check w-[60%] md:w-[30%] mx-auto my-5'>
+                {/* <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Check Out My Work !</p>
-                </BackgroundGradient>
+                </BackgroundGradient> */}
+                <p className='h-[50px] md:h-[60px] text-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent font-dancing text-4xl md:text-5xl'>
+                Check Out My Work !</p>
               </div>
 
               <div className='text-center w-4/5 mx-auto'>
@@ -158,7 +219,7 @@ const prevImage = () => {
                       <img
                       src={items.images}
                       alt={items.name}
-                      className='rounded hover:scale-105 transition-transform duration-300 w-[300px] h-auto'
+                      className='rounded hover:scale-105 transition-transform cursor-pointer duration-300 w-[300px] h-auto'
                       onClick={() => toggleModal(index)}
                       />
 
@@ -202,12 +263,14 @@ const prevImage = () => {
 
 
 
-              <div className=" bg-black h-[1px] transform  w-[90%] mx-auto my-10" />
+              <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
 
-              <div className='service w-[50%] md:w-[30%] mx-auto mb-5'>
-                <BackgroundGradient className=' '>
+              <div className='mt-5 service w-[50%] md:w-[30%] mx-auto mb-5'>
+                {/* <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Services</p>
-                </BackgroundGradient>
+                </BackgroundGradient> */}
+                <p className='h-[50px] md:h-[60px] text-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent font-dancing text-4xl md:text-5xl'>
+                Services</p>
               </div>
 
               <div className='text-center w-4/5 mx-auto'>
@@ -217,9 +280,9 @@ const prevImage = () => {
               </div>
 
 
-            <div className='servicee w-[80%] mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-stretch mx-auto gap-6 md:gap-20'>
+            <div className=' w-[80%] mt-10 grid grid-cols-1 md:grid-cols-3 justify-center items-stretch mx-auto gap-6 md:gap-20'>
               {services.map((items, index) => (
-                <div key={index} className='mx-auto flex flex-col items-center h-full max-w-[300px]'>
+                <div key={index} className='fade-in mx-auto flex flex-col items-center h-full max-w-[300px]'>
                   <img
                     src={items.images}
                     alt={items.title}
@@ -232,26 +295,27 @@ const prevImage = () => {
                 </div>
               ))}
             </div>
-
-            
-
+       
             <div className='flex justify-center items-center w-screen h-[200px] md:h-[300px] mt-10'>
               <div className='absolute z-10 flex flex-col'>
-              <p className=' text-center text-3xl md:text-5xl'>
+              <p className='pt-4 text-center text-3xl md:text-5xl'>
                 
                 Contact Me <br/>
-                <span className='text-lg md:text-xl'>联络方式</span>
+                <span className='text-lg md:text-xl'>联络方式 <br/></span>
+                <span className='text-sm'></span>
                 </p>
+
+              
 
                 <div className="flex flex-row mt-5 md:mt-10 gap-4 justify-evenly items-center">
                   <SocialIcon href="https://wa.me/your-number-here">
-                    <FaWhatsapp className='md:size-8 hover:text-blue-500'/>
+                    <FaWhatsapp className='md:size-8 hover:text-green-300'/>
                   </SocialIcon>
                   <SocialIcon href="https://facebook.com/your-link-here">
-                    <FaFacebook className='md:size-8 hover:text-blue-500'/>
+                    <FaFacebook className='md:size-8 hover:text-blue-300'/>
                   </SocialIcon>
                   <SocialIcon href="https://www.instagram.com/y_memoriesworld?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-                    <FaInstagram className='md:size-8 hover:text-blue-500'/>
+                    <FaInstagram className='md:size-8 hover:text-red-300'/>
                   </SocialIcon>
               </div>
 
@@ -266,7 +330,7 @@ const prevImage = () => {
                 style={{ filter: 'brightness(30%)' }}
               />
             </div>
-
+            
         </div>
       </div>
      

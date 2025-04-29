@@ -10,7 +10,18 @@ export default {
         mon: ['Monsieur La Doulaise', 'cursive'],
         play: ['Playwrite AU SA', 'cursive'],
         lavish: ['Lavishly Yours', 'cursive'],
+        meow:['Meow Script','cursive'],
         
+      },
+
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        scroll: 'scroll 30s linear infinite',
       },
 
     },
