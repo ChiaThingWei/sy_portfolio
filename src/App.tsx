@@ -1,5 +1,4 @@
-import { BackgroundGradient } from './components/ui/background-gradient';
-import {seiyu,   potrait, skills, star, services, hotel } from './utils/images';
+import {seiyu,   potrait, skills, services, hotel } from './utils/images';
 import { useEffect, useRef, useState } from 'react';
 import SocialIcon from './components/ui/SocialIcon';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
@@ -69,7 +68,6 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 const [currentIndex, setCurrentIndex] = useState(0);
 const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
 const containerRef = useRef<HTMLDivElement | null>(null);
-const audioRef = useRef<HTMLAudioElement | null>(null);
 
 // Toggle modal visibility
 const toggleModal = (index: number) => {
