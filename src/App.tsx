@@ -135,7 +135,7 @@ const prevImage = () => {
                 <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
 
           <div>
-                <div className='skills opacity-100 w-[30%] mx-auto my-10'>
+                <div className='skills opacity-100 w-[40%] mx-auto my-10'>
                 {/* <BackgroundGradient className=' '>
                   <p className='font-semibold text-center uppercase'>Skills</p>
                 </BackgroundGradient> */}
@@ -195,7 +195,7 @@ const prevImage = () => {
 
               <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
 
-              <div className='check w-[60%] md:w-[30%] mx-auto my-5'>
+              <div className='check  mx-auto my-5'>
                 {/* <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Check Out My Work !</p>
                 </BackgroundGradient> */}
@@ -263,7 +263,7 @@ const prevImage = () => {
 
               <div className=" bg-black opacity-20 h-[1px] transform  w-[90%] mx-auto my-5" />
 
-              <div className='mt-5 service w-[50%] md:w-[30%] mx-auto mb-5'>
+              <div className='mt-5 service mx-auto mb-5'>
                 {/* <BackgroundGradient className=' '>
                   <p className='text-center uppercase'>Services</p>
                 </BackgroundGradient> */}
