@@ -1,5 +1,5 @@
-import {seiyu,   potrait, hotel, college } from './utils/images';
-import { useEffect, useRef, useState } from 'react';
+import {seiyu,  college } from './utils/images';
+import { useEffect, useRef } from 'react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
