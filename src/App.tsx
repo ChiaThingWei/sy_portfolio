@@ -363,7 +363,9 @@ const navbarRef = useRef<HTMLDivElement>(null);
             
             <section id='contact' className='min-h-screen md:scroll-mt-20 scroll-mt-10'>
 
-                <div className='w-5/6 md:w-3/5 md:flex mx-auto shadow-xl border-2 border-gray-300  rounded-lg'>
+                <div 
+                style={{}}
+                className='w-5/6 md:w-3/5 md:flex mx-auto shadow-xl border border-black bg-white  rounded-lg'>
 
                 
                 <div className='p-6 w-full md:w-1/2 flex-col flex items-center justify-center'>
