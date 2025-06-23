@@ -4,12 +4,14 @@ import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
-import { moveUpGsap } from './utils/aminateGsap';
+import { gsapGroup1, gsapGroup2, moveUpGsap } from './utils/aminateGsap';
 import { services } from './utils/images';
 import { college2 } from './utils/images';
 import { MdOutlineEmail, MdOutlinePhone } from "react-icons/md";
 import { InstagramEmbed } from 'react-social-media-embed';
 import { SiXiaohongshu } from "react-icons/si";
+import { TextPlugin } from "gsap/TextPlugin";
+gsap.registerPlugin(TextPlugin);
 
 
 import bg from './images/sybackground1.jpeg'
@@ -19,39 +21,14 @@ export default function App() {
   useEffect(() => {
 
     moveUpGsap('.yo')
-    moveUpGsap('.text1')
-    // moveUpGsap('.skills')
-    // moveUpGsap('.skillss')
-    moveUpGsap('.check')
-    moveUpGsap('.service')
-    moveUpGsap('.servicee')
+    gsapGroup1('.group1','.text')
+    gsapGroup2('.group2','.sying','.shop','.moutain')
 
   }, []); 
-
-  useEffect(() => {
-    gsap.utils.toArray('.fade-in').forEach((el) => {
-      gsap.fromTo(
-         el as Element,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: el as Element,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-    });
-  }, []);
-
   
 
 useEffect(() => {
   let lastScrollY = window.scrollY;
-  console.log( lastScrollY);
   const handleScroll = () => {
     const navbar = navbarRef.current;
 
@@ -71,38 +48,6 @@ useEffect(() => {
   return () => window.removeEventListener("scroll", handleScroll);
 }, []);
 
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 60%', // when the top of the container hits 80% of the viewport height
-        toggleActions: 'play none none none', // play only once
-      },
-    });
-
-    tl.fromTo(
-      skillRefs.current.filter(Boolean),
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 5,
-        stagger: 0.5,
-        ease: 'power3.out',
-      }
-    );
-  }, []);
-
-  // const services = [
-  //   {img: grad ,title:'Graduation Potrait', desc:'Celebrate your milestone with timeless, confident shots in your gown — on campus or outdoors.'},
-  //   {img: pro ,title:'Professional Potrait',desc:'Stand out with clean, polished headshots ideal for LinkedIn, resumes, or business use.'},
-  //   {img: beach,title:'Outdoor Potrait',desc:'Natural light, scenic backdrops, and candid moments — perfect for solo, couple, or lifestyle shoots.'},
-  //   {img: fam,title:'Family Potrait',desc:'Warm, genuine photos that capture your family’s love and connection in a relaxed setting.'},
-  // ]
-
-
-const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
-const containerRef = useRef<HTMLDivElement | null>(null);
 const navbarRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -141,11 +86,12 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
        
                   <div  className='absolute z-10 inset-0 w-full md:justify-center gap-2 mx-auto mb-5 mt-20 md:mt-10 md:flex md:items-center '>
-                    <div id="yo" className=' yo mt-4 opacity-100 md:w-2/5 '>
+                    <div id="yo" className='yo  mt-4 opacity-100 md:w-2/5 '>
                       <img
                       src={seiyu}
                       alt="seiyu"
                       className='hover:scale-105 mx-auto transition-transform duration-300 object-cover shrink-0 w-[220px] h-[220px] rounded-full md:w-[250px] md:h-[250px] '
+                      loading="lazy"
                       />
                     </div>
 
@@ -175,14 +121,15 @@ const navbarRef = useRef<HTMLDivElement>(null);
              
 
             <section id='portfolio' className='min-h-screen scroll-mt-5'>
-            <div  className='full  md:flex items-center justify-center overflow-hidden mx-auto my-10'>
+            <div id='group1'  className='group1 full  md:flex items-center justify-center overflow-hidden mx-auto my-10'>
 
-              <div className='mx-auto flex flex-row justify-center md:w-2/5'>
+              <div id="pic" className='pic will-change-transform mx-auto flex flex-row justify-center md:w-2/5'>
                 <div className=''>
                     <img
                     src={college[0].images}
                     alt='hi'
-                    className='object-cover w-[180px] h-[400px] md:w-[250px] md:h-[540px]'
+                    className=' object-cover w-[180px] h-[400px] md:w-[250px] md:h-[540px]'
+                    loading='lazy'
                     />
                 </div>
 
@@ -190,12 +137,14 @@ const navbarRef = useRef<HTMLDivElement>(null);
                   <img
                     src={college[1].images}
                     alt='hi'
-                    className='object-cover w-[180px] h-[196px] md:w-[250px] md:h-[266px]'
+                    className=' object-cover w-[180px] h-[196px] md:w-[250px] md:h-[266px]'
+                     loading='lazy'
                     />
                     <img
                     src={college[2].images}
                     alt='hi'
-                    className='object-cover w-[180px] h-[196px]  md:w-[250px] md:h-[266px]'
+                    className=' object-cover w-[180px] h-[196px]  md:w-[250px] md:h-[266px]'
+                     loading='lazy'
                     />
 
                 </div>
@@ -214,7 +163,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                 </p>
 
               </div> */}
-               <div className='mt-6 py-auto md:w-2/5 mx-auto justify-center my-auto '>
+               <div id='text' className='text mt-6 py-auto md:w-2/5 mx-auto justify-center my-auto '>
 
                 <p className='p-6 md:p-0  md:pt-32 font-bold font-mono text-3xl md:text-4xl  text-black text-center md:text-start'>
                 我的摄影美学
@@ -224,9 +173,9 @@ const navbarRef = useRef<HTMLDivElement>(null);
                 我始终相信，真正动人的画面，源自那些未经雕饰的瞬间。用自然的光影作笔、以情感为墨，
                 <span className='text-green-500 text-lg font-semibold'> 我试图捕捉的不仅是形象，更是情绪与温度。</span>
                 轻轻的一瞥、悄然的一笑，或是流转之间的沉静时光，皆是我镜头下的诗篇。
-
-摄影于我，不只是记录，而是用光与影，书写生活的低语与温柔。
+                摄影于我，不只是记录，而是用光与影，书写生活的低语与温柔。
                 </p>
+              
 
                 </div>
 
@@ -236,7 +185,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
             <div className='left-0 w-3/5 h-[100px] bg-green-500'></div>
 
-            <div className='w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto my-10'>
+            <div id=".group2" className='group2 w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto my-10'>
 
                <div className='w-full md:flex flex-row md:h-1/2 mb-4 overflow-hidden'>
 
@@ -265,7 +214,8 @@ const navbarRef = useRef<HTMLDivElement>(null);
                     <img
                     src={college2[0].images}
                     alt={college2[0].name}
-                    className='md:w-1/2 w-full h-[250px] md:h-full object-cover md:ml-4 '
+                    className='moutain md:w-1/2 w-full h-[250px] md:h-full object-cover md:ml-4 '
+                    loading="lazy"
                     />
 
                </div>
@@ -274,12 +224,14 @@ const navbarRef = useRef<HTMLDivElement>(null);
                <img
                     src={college2[1].images}
                     alt='hi'
-                    className='md:w-1/2 w-full h-[250px] md:h-full object-cover '
+                    className='shop md:w-1/2 w-full h-[250px] md:h-full object-cover '
+                    loading="lazy"
                     />
                       <img
                     src={college2[2].images}
                     alt='hi'
-                    className='w-1/4 object-cover md:ml-2 hidden md:block'
+                    className='sying w-1/4 object-cover md:ml-2 hidden md:block'
+                    loading="lazy"
                     />
 
                </div>
@@ -325,7 +277,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                   </p>
 
                 {/* <div className='grid grid-cols-2 mt-8 gap-4 md:grid-cols-4 '> */}
-                <div className='flex scrollbar-hide p-4 overflow-x-auto gap-4 md:grid md:grid-cols-4'>
+                <div  className='flex scrollbar-hide p-4 overflow-x-auto gap-4 md:grid md:grid-cols-4'>
                 {services.map((ser,index)=>(
 
                   // <div key={index} className='mx-auto bg-white shadow-lg border-2 hover:scale-105 transition-transform duration-300 rounded-lg'>
@@ -337,6 +289,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                       <img
                       src={ser.img}
                       className='w-[200px] md:w-[250px] h-[300px] rounded-xl object-cover mx-auto p-2'
+                      loading="lazy"
                       />
                       {/* <p className=' text-black text-center font-semibold font-mono'>{ser.title}</p>
                       <p className='p-2 text-black text-center text-sm'>{ser.desc}</p>
