@@ -334,8 +334,8 @@ const navbarRef = useRef<HTMLDivElement>(null);
             ))}
             </div> */}
 
-
-                  <p className='text-sky-600 text-center font-mono mt-16 text-3xl'>
+              <div className='mt-16 flex flex-col'>
+                  <p className='text-sky-600 text-center font-mono  text-3xl'>
                        顾客反馈
                   </p>
 
@@ -371,6 +371,12 @@ const navbarRef = useRef<HTMLDivElement>(null);
                 ))}
               </Marquee>
                </div>
+
+                <a href='https://wa.me/60166981240'  target="_blank" className='mx-auto mt-4 px-16 py-2 text-gray-500 hover:text-blue-500 border-2 border-gray-500 text-xl hover:scale-110 transition-transform duration-300 cursor-pointer opacity-80 rounded-full bg-white'>马上预约</a>
+
+               </div>
+
+               
 
               </section>
           
