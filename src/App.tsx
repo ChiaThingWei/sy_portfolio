@@ -12,17 +12,21 @@ import { InstagramEmbed } from 'react-social-media-embed';
 import { SiXiaohongshu } from "react-icons/si";
 import { TextPlugin } from "gsap/TextPlugin";
 gsap.registerPlugin(TextPlugin);
-
-
+import { customers } from './utils/utils';
 import bg from './images/sybackground1.jpeg'
+import Marquee from 'react-fast-marquee';
 
 export default function App() {
+
+  const grp1Ref = useRef<HTMLDivElement>(null);
+  const grp2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
 
     moveUpGsap('.yo')
-    gsapGroup1('.group1','.text')
-    gsapGroup2('.group2','.sying','.shop','.moutain')
+    gsapGroup1(grp1Ref,'.text')
+    
+    gsapGroup2(grp2Ref,'.sying','.shop','.moutain')
 
   }, []); 
   
@@ -72,7 +76,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                     </div>
               </div>
 
-              <section id='about' className='min-h-screen scroll-mt-5'>
+              <section id='about' className=' scroll-mt-5'>
                <div className='relative w-screen h-[600px] md:h-[550px] overflow-hidden'>
              
                 {/* <Navbar/> */}
@@ -120,8 +124,8 @@ const navbarRef = useRef<HTMLDivElement>(null);
              </section>
              
 
-            <section id='portfolio' className='min-h-screen scroll-mt-5'>
-            <div id='group1'  className='group1 full  md:flex items-center justify-center overflow-hidden mx-auto my-10'>
+            <section id='portfolio' className=' scroll-mt-5'>
+            <div id='group1'  className='group1   md:flex items-center justify-center overflow-hidden mx-auto my-10'>
 
               <div id="pic" className='pic will-change-transform mx-auto flex flex-row justify-center md:w-2/5'>
                 <div className=''>
@@ -163,7 +167,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                 </p>
 
               </div> */}
-               <div id='text' className='text mt-6 py-auto md:w-2/5 mx-auto justify-center my-auto '>
+               <div ref={grp1Ref} id='text' className='text mt-6 py-auto md:w-2/5 mx-auto justify-center my-auto '>
 
                 <p className='p-6 md:p-0  md:pt-32 font-bold font-mono text-3xl md:text-4xl  text-black text-center md:text-start'>
                 我的摄影美学
@@ -185,7 +189,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
             <div className='left-0 w-3/5 h-[100px] bg-green-500'></div>
 
-            <div id=".group2" className='group2 w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto my-10'>
+            <div ref={grp2Ref} id=".group2" className='group2 w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto my-10'>
 
                <div className='w-full md:flex flex-row md:h-1/2 mb-4 overflow-hidden'>
 
@@ -215,7 +219,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                     src={college2[0].images}
                     alt={college2[0].name}
                     className='moutain md:w-1/2 w-full h-[250px] md:h-full object-cover md:ml-4 '
-                    loading="lazy"
+                   
                     />
 
                </div>
@@ -225,13 +229,13 @@ const navbarRef = useRef<HTMLDivElement>(null);
                     src={college2[1].images}
                     alt='hi'
                     className='shop md:w-1/2 w-full h-[250px] md:h-full object-cover '
-                    loading="lazy"
+                 
                     />
                       <img
                     src={college2[2].images}
                     alt='hi'
                     className='sying w-1/4 object-cover md:ml-2 hidden md:block'
-                    loading="lazy"
+                 
                     />
 
                </div>
@@ -267,7 +271,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
               </section>
              
-            <section id='services' className='min-h-screen scroll-mt-10'>
+            <section id='services' className=' scroll-mt-10'>
               <div  className='w-11/12 mx-auto mb-4 '>
                 <p className='text-sky-600 text-center font-mono text-3xl'>
                 摄影项目
@@ -277,7 +281,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
                   </p>
 
                 {/* <div className='grid grid-cols-2 mt-8 gap-4 md:grid-cols-4 '> */}
-                <div  className='flex scrollbar-hide p-4 overflow-x-auto gap-4 md:grid md:grid-cols-4'>
+                <div  className='flex scrollbar-hide p-4 overflow-x-auto gap-4 '>
                 {services.map((ser,index)=>(
 
                   // <div key={index} className='mx-auto bg-white shadow-lg border-2 hover:scale-105 transition-transform duration-300 rounded-lg'>
@@ -311,67 +315,126 @@ const navbarRef = useRef<HTMLDivElement>(null);
                 </div>
 
               </div>
+
+
+                {/* <div className='flex gap-5 overflow-x-auto scrollbar-hide my-10 p-2 '>
+              {customers.map((customer, index) => (
+              <div key={index} className="flex-shrink-0 p-6 rounded w-[200px] overflow-hidden md:w-[400px] border shadow bg-white text-black">
+               
+                <h3 className="text-start font-semibold mt-2">{customer.name}</h3>
+                <div className="flex w-full justify-start mt-1">
+                  {[...Array(customer.rating)].map((_, i) => (
+                    <img key={i} src={customer.image} alt="star" className="w-4 h-4 mx-0.5 object-cover" />
+                  ))}
+                </div>
+              
+                <p className="text-sm text-start mt-10 mb-5">{customer.feedback}</p>
+                <p className='font-semibold'>{customer.date}</p>
+              </div>
+            ))}
+            </div> */}
+
+
+                  <p className='text-sky-600 text-center font-mono mt-16 text-3xl'>
+                       顾客反馈
+                  </p>
+
+                  <p className='text-black text-center text-lg my-4'>
+                       每一张照片背后，都是一段故事。这些顾客的回馈，是我们继续前进的最大动力。
+                  </p>
+
+            <div className="my-10">
+              <Marquee
+                gradient={false} // 关闭渐变阴影
+                speed={60}
+                pauseOnHover={true}
+              >
+                {customers.map((customer, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 bg-gray-800 opacity-80 text-white h-[260px] shadow-xl p-6 rounded-xl mx-4 w-[200px] md:w-[400px]"
+                  >
+                    <h3 className="text-start font-semibold mt-2">{customer.name}</h3>
+                    <div className="flex w-full justify-start mt-1">
+                      {[...Array(customer.rating)].map((_, i) => (
+                        <img
+                          key={i}
+                          src={customer.image}
+                          alt="star"
+                          className="w-4 h-4 mx-0.5 object-cover"
+                        />
+                      ))}
+                    </div>
+                    <p className="text-sm text-start mt-10 mb-5">{customer.feedback}</p>
+                    <p className="font-semibold">{customer.date}</p>
+                  </div>
+                ))}
+              </Marquee>
+               </div>
+
               </section>
           
             
-            <section id='contact' className='min-h-screen md:scroll-mt-20 scroll-mt-10'>
+            <section id='contact' className='min-h-screen mt-32 md:scroll-mt-20 scroll-mt-10'>
 
                 <div 
                 style={{}}
-                className='w-5/6 md:w-3/5 md:flex mx-auto shadow-xl border border-black bg-white  rounded-lg'>
+                className='w-5/6 md:w-3/5 md:flex mx-auto shadow-xl border border-black bg-gray-600 my-auto  rounded-lg'>
 
                 
                 <div className='p-6 w-full md:w-1/2 flex-col flex items-center justify-center'>
-                  <p className='text-green-500 text-3xl font-bold text-center '>联系我</p>
-                  <p className='text-black mt-4 text-center'>如果你喜欢我的拍摄风格，也正在寻找一位摄影师，欢迎和我聊聊，说不定我们可以一起完成一场很美的拍摄😆</p>
+                  <p className='text-white text-3xl font-bold text-center '>联系我</p>
+                  <p className='text-white mt-4 text-center'>如果你喜欢我的拍摄风格，也正在寻找一位摄影师，欢迎和我聊聊，说不定我们可以一起完成一场很美的拍摄😆</p>
                 </div>
                 
                 <div className='flex md:w-1/2 flex-col w-full gap-3 md:items-start my-7 '>
-                  <a href='mailto:sychia306@gmail.com' className='text-black w-2/3 bg-green-400 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
+                  <a href='mailto:sychia306@gmail.com' className='text-black w-2/3 bg-green-400 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
                     <MdOutlineEmail className='my-auto size-5'/>
                     <p className='ml-3 '>sychia306@gmail.com</p>
                   </a>
 
 
-                  <a href='tel: +60166981240' className='text-black  bg-yellow-100 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black w-2/3 rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
+                  <a href='tel: +60166981240' className='text-black  bg-yellow-100 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black w-2/3 rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
                 <MdOutlinePhone className='my-auto size-5'/>
                 <p className='ml-3 '>016-698 1240</p>
                </a>
 
               
-              <a href='https://wa.me/60166981240'  target="_blank" className='text-black bg-green-400 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black rounded-full px-4 py-2 w-2/3 mx-auto border-2 flex flex-row'>
+              <a href='https://wa.me/60166981240'  target="_blank" className='text-black bg-green-400 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black rounded-full px-4 py-2 w-2/3 mx-auto border-2 flex flex-row'>
                 <FaWhatsapp className='my-auto size-5'/>
                 <p className='ml-3 '>Whatsapp Me</p>
               </a>
 
-              <a href='https://www.instagram.com/y_memoriesworld/'  target="_blank" className='text-black bg-red-300 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black rounded-full px-4 py-2 mx-auto w-2/3  border-2 flex flex-row'>
+              <a href='https://www.instagram.com/y_memoriesworld/'  target="_blank" className='text-black bg-red-300 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black rounded-full px-4 py-2 mx-auto w-2/3  border-2 flex flex-row'>
                 <FaInstagram className='my-auto size-5'/>
                 <p className='ml-3'>y_memoriesworld</p>
               </a>
 
-              <a href='https://www.facebook.com/seiyu.chia'  target="_blank" className='text-black bg-blue-300 w-2/3 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
+              <a href='https://www.facebook.com/seiyu.chia'  target="_blank" className='text-black bg-blue-300 w-2/3 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
                 <FaFacebook  className='my-auto size-5'/>
                 <p className='ml-3'>Sei Yu Chia</p>
               </a>
 
-              <a href=''  target="_blank" className='text-black bg-red-400 w-2/3 cursor-pointer hover:border-blue-400 transition-colors duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
+              <a href=''  target="_blank" className='text-black bg-red-400 w-2/3 cursor-pointer hover:scale-105 transition-transform duration-300 hover:text-black rounded-full px-4 py-2 mx-auto border-2 flex flex-row'>
                 <SiXiaohongshu  className='my-auto size-5'/>
                 <p className='ml-3'>Sei Yu Chia</p>
               </a>
 
                </div>
 
-
+             
 
                 </div>
+
+                <div className='mt-10 md:mt-20'>
+                <p className='text-center text-black font-mono'>Sei Yu Photograph Studio</p>
+                <div  className='h-[2px] bg-gray-800 '/>
+                </div>
+               
                 </section>
-              
-       
-          
+    
             
         </div>
-      
-     
   
     </>
   )

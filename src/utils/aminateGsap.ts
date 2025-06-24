@@ -40,12 +40,19 @@ export const moveUpGsap =(target:string , animationProps={},scrollProps={}) =>{
           }
         });
 }
+// export const gsapGroup1 =(
+//     ref: React.RefObject<HTMLElement>,
+//     divTarget: string, target:string ,  animationProps={},scrollProps={}) =>{
 
-export const gsapGroup1 =(divTarget: string, target:string ,  animationProps={},scrollProps={}) =>{
+export const gsapGroup1 =(
+    ref: React.RefObject<HTMLElement| null>, target:string ,  animationProps={},scrollProps={}) =>{
+
+        if (!ref.current) return;
 
     const tl = gsap.timeline({
         scrollTrigger:{
-            trigger: divTarget,
+            trigger: ref.current
+            ,
             start: "top 30%",
             once: true,
           
@@ -136,11 +143,12 @@ export const gsapGroup1 =(divTarget: string, target:string ,  animationProps={},
 
 // }
 
-export const gsapGroup2 =(divTarget: string, target:string , target2: string, target3: string, animationProps={},scrollProps={}) =>{
+// export const gsapGroup2 =(divTarget: string, target:string , target2: string, target3: string, animationProps={},scrollProps={}) =>{
+    export const gsapGroup2 =(ref: React.RefObject<HTMLElement| null>, target:string , target2: string, target3: string, animationProps={},scrollProps={}) =>{
 
     const tl = gsap.timeline({
         scrollTrigger:{
-            trigger: divTarget,
+            trigger: ref.current,
             start: "top 30%",
             once: true,
            
