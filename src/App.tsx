@@ -15,6 +15,7 @@ gsap.registerPlugin(TextPlugin);
 import { customers } from './utils/utils';
 import bg from './images/sybackground1.jpeg'
 import Marquee from 'react-fast-marquee';
+import { ArrowDown } from 'lucide-react';
 
 export default function App() {
 
@@ -76,8 +77,8 @@ const navbarRef = useRef<HTMLDivElement>(null);
                     </div>
               </div>
 
-              <section id='about' className=' scroll-mt-5'>
-               <div className='relative w-screen h-[600px] md:h-[550px] overflow-hidden'>
+              <section id='about' className='scroll-mt-5'>
+               <div className='relative w-screen h-[100vh] overflow-hidden'>
              
                 {/* <Navbar/> */}
                 
@@ -101,7 +102,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
                     <div className='mt-10 md:mt-0 md:w-2/5'>
                     <p className='font-mono text-center md:text-start  text-black opacity-70 md:opacity-80 font-semibold'>
-                      <span className='text-3xl md:text-4xl font-semibold'>你好 ! 我是 CHIA SEI YU</span>
+                      <span className='text-3xl md:text-4xl font-semibold'>你好 ! 我是摄影师 CHIA SEI YU</span>
                       <span className='font-semibold text-xl md:text-3xl'>
                       <br/>
                       {/* I CAN CATCH BEST MOMENTS OF LIFE <br/> */}
@@ -116,7 +117,17 @@ const navbarRef = useRef<HTMLDivElement>(null);
                       </p>
 
 
-                  
+                   <div className='absolute z-10 inset-0 w-full flex justify-center'>
+                      <div 
+                          className="absolute bottom-8 bg-gray-800  rounded-full p-2  mx-auto transform -translate-x-1/2 cursor-pointer animate-bounce"
+                        
+                        >
+                          <a href="#portfolio">
+                          <ArrowDown className="w-6 h-6 text-white" />
+                          </a>
+                        </div>
+                        </div>
+
                     </div>
                   </div>
                   
@@ -124,10 +135,10 @@ const navbarRef = useRef<HTMLDivElement>(null);
              </section>
              
 
-            <section id='portfolio' className=' scroll-mt-5'>
-            <div id='group1'  className='group1   md:flex items-center justify-center overflow-hidden mx-auto my-10'>
+            <section id='portfolio' className=' '>
+            <div id='group1'  className='group1 my-10 md:flex items-center justify-center overflow-hidden mx-auto '>
 
-              <div id="pic" className='pic will-change-transform mx-auto flex flex-row justify-center md:w-2/5'>
+              <div id="pic" className='pic will-change-transform mx-auto  flex md:my-auto flex-row justify-center md:w-2/5'>
                 <div className=''>
                     <img
                     src={college[0].images}
@@ -187,9 +198,9 @@ const navbarRef = useRef<HTMLDivElement>(null);
             
 
 
-            <div className='left-0 w-3/5 h-[100px] bg-green-500'></div>
+            <div className='left-0 my-10 md:mt-0 md:mb-10 w-3/5 h-[100px] bg-green-500'></div>
 
-            <div ref={grp2Ref} id=".group2" className='group2 w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto my-10'>
+            <div ref={grp2Ref} id=".group2" className='group2 w-10/12 md:h-[600px] md:flex flex-col items-center justify-center overflow-hidden mx-auto mb-10'>
 
                <div className='w-full md:flex flex-row md:h-1/2 mb-4 overflow-hidden'>
 
@@ -289,10 +300,10 @@ const navbarRef = useRef<HTMLDivElement>(null);
                   key={index}
                   className='flex-shrink-0 w-[75%] min-w-[250px] max-w-[300px] mx-auto bg-white shadow-lg border-2 hover:scale-105 transition-transform duration-300 rounded-lg'
                 >
-                    <div className=' my-4 mx-auto flex flex-col justify-between h-[400px] '>
+                    <div className=' my-4 mx-auto flex flex-col justify-between  '>
                       <img
                       src={ser.img}
-                      className='w-[200px] md:w-[250px] h-[300px] rounded-xl object-cover mx-auto p-2'
+                      className='w-[200px] md:w-[250px]  md:h-[300px] h-[200px] rounded-xl object-cover mx-auto p-2'
                       loading="lazy"
                       />
                       {/* <p className=' text-black text-center font-semibold font-mono'>{ser.title}</p>
@@ -300,8 +311,13 @@ const navbarRef = useRef<HTMLDivElement>(null);
                       <p className='text-center text-black p-2 font-bold mb-0'>{ser.price}</p> */}
                        <div className="flex flex-col flex-1 gap-5 justify-between">
                         <div className='flex-1'>
-                          <p className="text-black text-center font-semibold font-mono">{ser.title}</p>
-                          <p className="text-black text-center text-sm px-2">{ser.desc}</p>
+                          <p className="text-black text-center text-xl font-semibold font-mono">{ser.title}</p>
+                          <p className="text-black text-center text-sm px-2 mt-1">{ser.desc}</p>
+                          <ul className='mt-6 text-center'>
+                            {ser.details.map((item, index) => (
+                              <li key={index} className='text-black text-sm mb-1 font-mono'>• {item}</li>
+                            ))}
+                          </ul>
                         </div>
        
                         <p className="text-center text-black font-bold ">{ser.price}</p>
