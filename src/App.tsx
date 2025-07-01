@@ -61,7 +61,7 @@ const navbarRef = useRef<HTMLDivElement>(null);
     <>
     <Helmet>
       <title>Chia Sei Yu Photographer</title>
-      <meta name="google-site-verification" content="8ezofPQhrOtziHZY_sGS3ok9jdBYi3GdrByrvznz0X0" />
+     
       <meta name="description" content="这是我的作品网站，我还有提供不一样的拍摄项目，欢迎查看！ This is my photography portfolio site. Welcome to explore my creative works!" />
       <meta name="keywords" content="摄影, 设计, 摄影师, portfolio, photography, creative, React, personal website" />
     </Helmet>
