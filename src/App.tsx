@@ -16,6 +16,8 @@ import { customers } from './utils/utils';
 import bg from './images/sybackground1.jpeg'
 import Marquee from 'react-fast-marquee';
 import { ArrowDown } from 'lucide-react';
+import { Helmet } from "react-helmet";
+
 
 export default function App() {
 
@@ -57,6 +59,11 @@ const navbarRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
+    <Helmet>
+      <title>Chia Sei Yu Photographer</title>
+      <meta name="description" content="这是我的作品网站，我还有提供不一样的拍摄项目，欢迎查看！ This is my photography portfolio site. Welcome to explore my creative works!" />
+      <meta name="keywords" content="摄影, 设计, 摄影师, portfolio, photography, creative, React, personal website" />
+    </Helmet>
 
         <div className='flex flex-col w-screen scroll-smooth justify-center  relative bg-gray-100'>
 
